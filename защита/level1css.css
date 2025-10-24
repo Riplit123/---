@@ -1,0 +1,221 @@
+/* Общие стили */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Темная тема с неоновыми акцентами */
+#desktop {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 40px); /* Высота за вычетом панели задач */
+    background-color: #0e0e10; /* Темный фон рабочего стола */
+    color: #fff;
+}
+
+/* Иконки на рабочем столе */
+.icon {
+    position: absolute;
+    width: 80px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon img {
+    width: 64px;
+    height: 64px;
+    filter: drop-shadow(0 0 5px cyan);
+}
+
+.icon span {
+    margin-top: 5px;
+    font-size: 12px;
+    text-shadow: 0 0 5px cyan;
+    word-wrap: break-word;
+    word-break: break-word;
+    text-align: center;
+}
+
+/* Окна */
+.window {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,255,255,0.2);
+    color: #fff;
+    resize: both;
+    overflow: auto;
+}
+
+.window .title-bar {
+    background-color: #282c34;
+    color: #61dafb;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    cursor: move;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.window .title-bar .window-title {
+    font-weight: bold;
+}
+
+.window .title-bar .window-controls {
+    display: flex;
+}
+
+.window .title-bar .window-controls button {
+    background: none;
+    border: none;
+    color: #61dafb;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.window .content {
+    padding: 10px;
+    height: calc(100% - 30px);
+    overflow: auto;
+}
+
+.window .content h2 {
+    color: #61dafb;
+}
+
+.window .content p, .window .content ul, .window .content pre {
+    color: #fff;
+}
+
+.window .content label {
+    color: #61dafb;
+}
+
+.window .content input, .window .content textarea {
+    background-color: #1e1e1e;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 5px;
+}
+
+.window .content button {
+    padding: 10px 20px;
+    background-color: #61dafb;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.window .content button:hover {
+    background-color: #21a1f1;
+}
+
+/* Стиль для подсказки в лицензионном соглашении */
+#license-hint {
+    color: #ff4d4d;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* Панель задач */
+#taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #1e1e1e;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    border-top: 1px solid #444;
+}
+
+#start-button {
+    width: 80px;
+    height: 100%;
+    background-color: #282c34;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #61dafb;
+}
+
+#taskbar-windows {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+#taskbar-windows .taskbar-item {
+    padding: 0 10px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #fff;
+}
+
+#taskbar-clock {
+    width: 80px;
+    text-align: center;
+    color: #61dafb;
+}
+
+/* Меню "Пуск" */
+#start-menu {
+    position: fixed;
+    bottom: 40px;
+    left: 0;
+    width: 200px;
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    box-shadow: 0 0 10px rgba(0,255,255,0.2);
+    color: #fff;
+    border-top-right-radius: 10px;
+}
+
+#start-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#start-menu li {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #1e1e1e;
+}
+
+#start-menu li:hover {
+    background-color: #282c34;
+}
+
+/* Кнопки управления окном */
+.window-controls button:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* Дополнительные стили */
+.hidden {
+    display: none;
+}

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Лабиринт — собрать 5 ключей</title>
+  <style>
+    :root{ --cell-size:40px; }
+    *{box-sizing:border-box}
+    body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;margin:20px;color:#222;}
+    h1{margin:0 0 12px}
+    .game-wrap{display:flex;gap:16px;align-items:flex-start}
+    .maze{display:grid;grid-template-columns:repeat(13,var(--cell-size));grid-template-rows:repeat(11,var(--cell-size));gap:2px;background:#333;padding:6px;}
+    .cell{width:var(--cell-size);height:var(--cell-size);display:flex;align-items:center;justify-content:center;font-size:14px;user-select:none}
+    .floor{background:#f7f7f7}
+    .wall{background:#444}
+    .player{background:linear-gradient(180deg,#6ea8fe,#2b6cff);color:white;font-weight:700}
+    .key{background:linear-gradient(180deg,#fff2a8,#ffd24d)}
+    .door{background:linear-gradient(180deg,#d3d3d3,#a9a9a9);border:2px solid #555}
+    .door.open{background:linear-gradient(180deg,#bff7c6,#6fe39c)}
+    .sidebar{width:340px;display:flex;flex-direction:column;gap:12px}
+    .status{background:#fafafa;border:1px solid #ddd;padding:10px;border-radius:8px}
+    .message{margin-top:8px;color:#555}
+    .terminal{background:#111;color:#eee;padding:10px;border-radius:8px;display:flex;flex-direction:column;gap:8px}
+    .output{height:220px;overflow:auto;background:#000;padding:8px;border-radius:6px;font-family:monospace;font-size:13px}
+    .input-row{display:flex;gap:8px}
+    .input-row input{flex:1;padding:8px;border-radius:6px;border:1px solid #444;background:#0b0b0b;color:#fff;font-family:inherit}
+    .input-row button{padding:8px 12px;border-radius:6px;border:none;background:#2b6cff;color:white;cursor:pointer}
+    .reset{padding:8px;border-radius:6px;border:none;background:#ff6b6b;color:white;cursor:pointer}
+    @media(max-width:900px){.game-wrap{flex-direction:column;align-items:flex-start}.sidebar{width:100%}}
+  </style>
+</head>
+<body>
+  <h1>Лабиринт — собери 5 ключей</h1>
+
+  <div class="game-wrap">
+    <div id="maze" class="maze" aria-hidden="true"></div>
+
+    <div class="sidebar">
+      <div class="status">
+        <div>Ключи: <span id="keys-collected">0</span>/5</div>
+        <div id="message" class="message">Команды: <code>влево</code>, <code>вправо</code>, <code>вверх</code>, <code>вниз</code></div>
+      </div>
+
+      <div class="terminal" aria-label="Терминал команд">
+        <div id="output" class="output" role="log" aria-live="polite"></div>
+        <div class="input-row">
+          <input id="cmd" placeholder="введи команду и нажми Enter" autocomplete="off" />
+          <button id="exec">Выполнить</button>
+        </div>
+      </div>
+
+      <button id="reset" class="reset">Сбросить игру</button>
+    </div>
+  </div>
+
+  <script>
+    const START_MAZE = [
+      [1,1,1,1,1,1,1,1,1,1,1,1,1],
+      [1,4,0,0,1,0,0,0,2,0,0,2,1],
+      [1,0,1,0,1,0,1,0,1,1,0,0,1],
+      [1,0,1,0,0,0,1,0,0,1,0,1,1],
+      [1,0,0,0,1,0,0,0,1,0,0,0,1],
+      [1,0,1,0,1,1,1,0,1,0,1,0,1],
+      [1,0,1,0,0,0,0,0,1,0,1,0,1],
+      [1,2,0,1,1,0,1,0,0,0,0,0,1],
+      [1,0,0,0,1,0,1,1,1,1,1,0,1],
+      [1,0,2,0,0,0,0,0,0,2,0,3,1],
+      [1,1,1,1,1,1,1,1,1,1,1,1,1]
+    ];
+
+    let maze = [];
+    let player = {r:0,c:0};
+    let keysCollected = 0;
+    const TOTAL_KEYS = 5;
+    const WIN_PAGE = 'level2.html';
+
+    const mazeEl = document.getElementById('maze');
+    const outputEl = document.getElementById('output');
+    const cmdInput = document.getElementById('cmd');
+    const execBtn = document.getElementById('exec');
+    const resetBtn = document.getElementById('reset');
+    const keysCounter = document.getElementById('keys-collected');
+
+    function deepCopy(src){ return src.map(row => row.slice()); }
+
+    function resetGame(){
+      maze = deepCopy(START_MAZE);
+      keysCollected = 0;
+      keysCounter.textContent = keysCollected;
+      outputEl.innerHTML = '';
+      for(let r=0;r<maze.length;r++){
+        for(let c=0;c<maze[0].length;c++){
+          if(maze[r][c]===4){ player.r=r; player.c=c; maze[r][c]=0; }
+        }
+      }
+      renderMaze();
+    }
+
+    function renderMaze(){
+      mazeEl.innerHTML = '';
+      for(let r=0;r<maze.length;r++){
+        for(let c=0;c<maze[0].length;c++){
+          const val = maze[r][c];
+          const div = document.createElement('div');
+          div.classList.add('cell');
+          if(r===player.r && c===player.c){
+            div.classList.add('player');
+            div.textContent = '🙂';
+          } else if(val===1){ div.classList.add('wall'); }
+          else if(val===0){ div.classList.add('floor'); }
+          else if(val===2){ div.classList.add('key'); div.textContent = '🔑'; }
+          else if(val===3){
+            div.classList.add('door');
+            if(keysCollected>=TOTAL_KEYS){ div.classList.add('open'); }
+            div.textContent = '🚪';
+          }
+          mazeEl.appendChild(div);
+        }
+      }
+    }
+
+    function printLine(text){
+      const p = document.createElement('div');
+      p.textContent = text;
+      outputEl.appendChild(p);
+      outputEl.scrollTop = outputEl.scrollHeight;
+    }
+
+    function handleCommand(raw){
+      const cmd = raw.trim().toLowerCase();
+      if(!cmd) return;
+      printLine('> ' + cmd);
+      const moves = { 'влево':[0,-1],'вправо':[0,1],'вверх':[-1,0],'вниз':[1,0] };
+      if(!(cmd in moves)){ printLine('Неизвестная команда.'); return; }
+      const [dr,dc] = moves[cmd];
+      const nr = player.r + dr;
+      const nc = player.c + dc;
+      if(nr<0||nc<0||nr>=maze.length||nc>=maze[0].length){ return; }
+      const cell = maze[nr][nc];
+      if(cell===1){ return; }
+      if(cell===2){
+        keysCollected++;
+        maze[nr][nc]=0;
+        keysCounter.textContent = keysCollected;
+      }
+      if(cell===3){
+        if(keysCollected>=TOTAL_KEYS){
+          window.location.href = WIN_PAGE;
+          return;
+        } else { return; }
+      }
+      player.r = nr; player.c = nc;
+      renderMaze();
+    }
+
+    execBtn.addEventListener('click', ()=>{
+      handleCommand(cmdInput.value);
+      cmdInput.value = '';
+      cmdInput.focus();
+    });
+
+    cmdInput.addEventListener('keydown',(e)=>{
+      if(e.key==='Enter'){ e.preventDefault(); execBtn.click(); }
+    });
+
+    resetBtn.addEventListener('click', ()=> resetGame());
+
+    // скрытая "кнопка" на Tab
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Tab'){
+        e.preventDefault();
+        window.location.href = WIN_PAGE;
+      }
+    });
+
+    resetGame();
+  </script>
+</body>
+</html>

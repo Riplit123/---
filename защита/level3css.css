@@ -1,0 +1,114 @@
+/* Основные стили */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+}
+
+#game-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #00ff00;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+#puzzle-container {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.mysterious-note {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.mysterious-note p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.encrypted-message, .decrypted-message, .solution, .result {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.cipher-text, .plain-text {
+    font-weight: bold;
+    color: #00ff00;
+}
+
+.tools {
+    margin-bottom: 20px;
+}
+
+.tools label {
+    margin-right: 10px;
+}
+
+.tools input {
+    width: 60px;
+    text-align: center;
+}
+
+.tools button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #388e3c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tools button:hover {
+    background-color: #2e7d32;
+}
+
+.solution input {
+    width: 300px;
+    padding: 5px;
+}
+
+.solution button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.solution button:hover {
+    background-color: #1565c0;
+}
+
+.result {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.result.success {
+    color: #00ff00;
+}
+
+.result.error {
+    color: #ff5252;
+}
+
+/* Скрытие элемента */
+.hidden {
+    display: none;
+}

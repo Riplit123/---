@@ -1,0 +1,94 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Криптографическая головоломка</title>
+    <link rel="stylesheet" href="level3css.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>Криптографическая головоломка</h1>
+        <p>Расшифруйте скрытые сообщения, используя подсказки и инструменты.</p>
+        
+        <div id="puzzle-container">
+            <!-- Первое сообщение -->
+            <div id="first-message-section">
+                <!-- Загадочная запись для первого сообщения -->
+                <div class="mysterious-note">
+                    <p><strong>Запись разработчика:</strong></p>
+                    <p>"В этом коде допущена системная ошибка. Все символы были смещены по адресу памяти на +3. Для декодирования выполните обратное смещение."</p>
+                </div>
+                
+                <!-- Первое зашифрованное сообщение -->
+                <div class="encrypted-message">
+                    Зашифрованное сообщение: <span class="cipher-text" id="cipher-text-1"></span>
+                </div>
+                               
+                <!-- Расшифрованное первое сообщение -->
+                <div class="decrypted-message">
+                    Расшифрованное сообщение: <span class="plain-text" id="plain-text-1"></span>
+                </div>
+                
+                <!-- Проверка ответа для первого сообщения -->
+                <div class="solution">
+                    <label for="user-solution-1">Ваш ответ:</label>
+                    <input type="text" class="user-solution" id="user-solution-1">
+                    <button class="check-solution" data-message="1">Проверить</button>
+                </div>
+                
+                <!-- Результат для первого сообщения -->
+                <div class="result" id="result-1">
+                    <!-- Результат проверки будет отображаться здесь -->
+                </div>
+            </div>
+
+            <!-- Второе сообщение (изначально скрытое) -->
+            <div id="second-message-section" class="hidden">
+                <!-- Тобой верно определен шифр, осталось угадать смещение -->
+                <div class="mysterious-note">
+                    <p><strong>Запись разработчика:</strong></p>
+                    <p>"Эта цифра часто встречается в мире программирования. Она представляет собой количество битов в одном байте, а ещё похожа на символ бесконечности."</p>
+                </div>
+
+                <!-- Второе зашифрованное сообщение -->
+                <div class="encrypted-message">
+                    Зашифрованное сообщение: <span class="cipher-text" id="cipher-text-2"></span>
+                </div>
+                            
+                <!-- Расшифрованное второе сообщение -->
+                <div class="decrypted-message">
+                    Расшифрованное сообщение: <span class="plain-text" id="plain-text-2"></span>
+                </div>
+                
+                <!-- Проверка ответа для второго сообщения -->
+                <div class="solution">
+                    <label for="user-solution-2">Ваше расшифрованное сообщение:</label>
+                    <input type="text" class="user-solution" id="user-solution-2">
+                    <button class="check-solution" data-message="2">Проверить</button>
+                </div>
+                
+                <!-- Результат для второго сообщения -->
+                <div class="result" id="result-2">
+                    <!-- Результат проверки будет отображаться здесь -->
+                </div>
+            </div>
+
+            <!-- Поле для ответа на загадку (изначально скрытое) -->
+            <div id="password-section" class="hidden">
+                <div class="password-prompt">
+                    <p><strong>Введите пароль для доступа:</strong></p>
+                </div>
+                <div class="solution">
+                    <label for="password-input">Пароль:</label>
+                    <input type="text" id="password-input">
+                    <button id="submit-password">Войти</button>
+                </div>
+                <div class="result" id="result-password">
+                    <!-- Результат проверки пароля будет отображаться здесь -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="level3js.js"></script>
+</body>
+</html>
