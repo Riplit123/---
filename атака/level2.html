@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Сборка последовательности процессов</title>
+    <link rel="stylesheet" href="level2css.css">
+</head>
+<body>
+    <h1>Сборка последовательности процессов</h1>
+    <div id="game-container">
+        <div id="instructions">
+            <p id="process-description"></p>
+        </div>
+        <div id="steps">
+            <!-- Доступные шаги будут добавлены динамически -->
+        </div>
+        <div id="sequence">
+            <h2>Соберите последовательность:</h2>
+            <div id="sequence-steps">
+                <!-- Сюда игрок будет перетаскивать шаги -->
+            </div>
+        </div>
+        <div id="buttons">
+            <button id="reset-button">Сбросить</button>
+            <button id="check-button">Проверить</button>
+        </div>
+        <div id="message"></div>
+    </div>
+
+    <!-- Видео заставка -->
+    <video id="intro-video" src="firstgamekey.mp4" style="display: none;" muted></video>
+
+    <script src="level2js.js"></script>
+</body>
+</html>

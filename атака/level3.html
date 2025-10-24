@@ -1,0 +1,31 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Тайны Цифрового Лабиринта</title>
+    <link rel="stylesheet" href="level3css.css">
+</head>
+<body>
+    <p id="story">
+        Каждое ваше действие имеет значение, и только правильная последовательность приведет вас к цели.
+    </p>
+    <div id="instructions">
+        <p><strong>Начальный сигнал:</strong> 5</p>
+        <p><strong>Требуемый сигнал на выходе:</strong> 20</p>
+        <p>Кликайте на узлы, связанные с текущим положением, чтобы продвигаться вперед или назад.
+            На каждом узле вы можете использовать операцию сложения или вычитания. Будьте внимательны: не все пути ведут к цели.
+        </p>
+    </div>
+    <div id="game-container">
+        <!-- Уменьшаем размеры canvas -->
+        <canvas id="game-canvas" width="1200" height="800"></canvas>
+        <div id="current-signal">Текущий сигнал: <span id="signal-value">5</span></div>
+        <button id="reset-button">Сбросить</button>
+    </div>
+    <!-- Контейнер для перехода на новую страницу -->
+    <div id="next-level" style="display: none; text-align: center; margin-top: 20px;">
+        <p>Врата открыты! Нажмите ниже, чтобы войти.</p>
+        <button id="next-button">Войти</button>
+    </div>
+    <script src="level3js.js"></script>
+</body>
+</html>

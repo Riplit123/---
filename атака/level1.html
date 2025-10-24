@@ -1,0 +1,47 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Виртуальный Рабочий Стол</title>
+    <link rel="stylesheet" href="level1css.css">
+</head>
+<body>
+
+<!-- Рабочий стол -->
+<div id="desktop">
+    <!-- Иконки на рабочем столе будут добавляться динамически через JavaScript -->
+</div>
+
+<!-- Окна приложений -->
+<div id="windows">
+    <!-- Окна будут динамически добавляться здесь -->
+</div>
+
+<!-- Панель задач -->
+<div id="taskbar">
+    <div id="start-button">Пуск</div>
+    <div id="taskbar-windows">
+        <!-- Кнопки открытых окон будут добавляться здесь -->
+    </div>
+    <div id="taskbar-clock">
+        <!-- Часы -->
+        <span id="clock-time"></span>
+    </div>
+</div>
+
+<!-- Меню "Пуск" -->
+<div id="start-menu" class="hidden">
+    <ul>
+        <li data-app="settings">Настройки</li>
+        <li data-app="explorer">Проводник</li>
+        <li data-app="downloads">Загрузки</li>
+        <li data-app="gallery">Галерея</li>
+        <li data-app="account">Аккаунт</li>
+    </ul>
+</div>
+
+<script src="level1js.js">
+
+</script>
+
+</body>
+</html>
